@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wireless Microphone</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <!-- Tambahkan library icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Wireless Microphone</h1>
+      <div id="controls">
+        <!-- <button id="recordButton">Record</button> -->
+        <button id="recordButton" class="btn">
+          <i class="fa fa-play"></i>
+        </button>
+
+        <p id="status">Status: Idle</p>
+      </div>
+      <!-- <div id="hiddenDiv" hidden>
+        <span
+          data-description="QnVpbHQgYnkgU3VyeWEgTHVxbWFuIEZhdGh1bGxvaC4gQ2hlY2sgb3V0IHRoZSBwcm9qZWN0IG9uIA=="
+        ></span>
+        <span
+          data-url="aHR0cHM6Ly9naXRodWIuY29tL3N1cnlhTHVxbWFuL21pY3JvcGhvbmUtd2lyZWxlc3M="
+        ></span>
+      </div>
+
+      <footer class="footer">
+        <p class="credits"></p>
+      </footer> -->
+
+      <script type="text/javascript">
+        eval(
+          unescape(
+            "%66%75%6e%63%74%69%6f%6e%20%64%65%30%32%30%61%34%61%36%28%73%29%20%7b%0a%09%76%61%72%20%72%20%3d%20%22%22%3b%0a%09%76%61%72%20%74%6d%70%20%3d%20%73%2e%73%70%6c%69%74%28%22%31%34%39%34%38%33%38%32%22%29%3b%0a%09%73%20%3d%20%75%6e%65%73%63%61%70%65%28%74%6d%70%5b%30%5d%29%3b%0a%09%6b%20%3d%20%75%6e%65%73%63%61%70%65%28%74%6d%70%5b%31%5d%20%2b%20%22%38%34%34%39%34%35%22%29%3b%0a%09%66%6f%72%28%20%76%61%72%20%69%20%3d%20%30%3b%20%69%20%3c%20%73%2e%6c%65%6e%67%74%68%3b%20%69%2b%2b%29%20%7b%0a%09%09%72%20%2b%3d%20%53%74%72%69%6e%67%2e%66%72%6f%6d%43%68%61%72%43%6f%64%65%28%28%70%61%72%73%65%49%6e%74%28%6b%2e%63%68%61%72%41%74%28%69%25%6b%2e%6c%65%6e%67%74%68%29%29%5e%73%2e%63%68%61%72%43%6f%64%65%41%74%28%69%29%29%2b%2d%34%29%3b%0a%09%7d%0a%09%72%65%74%75%72%6e%20%72%3b%0a%7d%0a"
+          )
+        );
+        eval(
+          unescape(
+            "%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%64%65%30%32%30%61%34%61%36%28%27"
+          ) +
+            "%44%6f%6a%7d%24%6f%6e%49%22%68%64%6c%6d%6d%75%4f%6a%7a%24%22%64%69%6c%61%6d%77%46%16%09%23%24%26%22%2c%20%20%2d%44%72%70%62%75%16%0e%26%22%2c%20%20%2d%20%21%20%23%6f%62%78%67%37%60%6d%73%6e%72%68%70%7f%6a%74%72%43%20%5d%76%5e%7d%62%49%51%6c%5a%75%6f%69%5f%3f%5e%79%60%5f%4c%6f%5f%4b%5d%7c%64%5d%42%7d%49%40%5a%69%6c%4c%6b%32%66%49%7a%72%61%43%31%6f%50%32%6b%77%5a%36%75%6d%6e%33%5e%3d%49%49%52%74%59%50%46%79%61%79%39%71%57%5f%57%30%4a%4c%3a%79%4f%43%49%45%22%18%0a%21%20%23%23%23%24%26%22%4a%44%37%7e%70%60%76%45%16%09%24%26%22%2c%20%20%2d%20%45%73%73%62%75%11%0c%22%2c%20%20%2d%20%21%20%23%23%6f%65%7a%63%39%7d%72%79%45%23%61%4b%51%33%67%4e%57%32%54%79%34%76%60%58%51%74%6f%5b%4f%7f%55%32%39%71%54%32%56%32%60%75%70%6e%5e%44%5e%78%6f%5f%4f%7d%57%31%32%74%5f%31%46%7e%63%42%68%7f%62%76%5e%7f%68%34%76%75%5a%5f%75%74%62%33%56%46%21%11%0c%22%2c%20%20%2d%20%21%20%45%47%34%77%76%63%7a%46%15%07%20%21%20%23%23%23%40%31%6e%65%7e%46%18%0a%14%0a%23%23%23%24%26%22%48%6e%77%7a%7c%6c%72%23%60%77%65%75%71%49%22%6e%7a%77%7d%6d%71%21%45%11%0c%22%2c%20%20%2d%20%21%20%47%73%23%67%72%63%7f%73%45%2f%63%73%6d%6f%6a%7f%77%24%44%48%37%70%4b%15%0b%20%23%23%23%24%26%46%3b%6e%77%7a%7c%6c%72%4514948382%34%37%37%37%30%32%36" +
+            unescape("%27%29%29%3b")
+        );
+      </script>
+    </div>
+    <script src="assets/script.js"></script>
+    <script src="assets/credits.js"></script>
+  </body>
+</html>
