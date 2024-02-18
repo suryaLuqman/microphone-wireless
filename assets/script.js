@@ -15,7 +15,7 @@ recordButton.addEventListener('click', () => {
    } else {
       stopRecording();
       recordButton.innerHTML = '<i class="fa fa-play"></i>';
-      updateStatus("Stopped. Click 'Play' to listen, 'Record' to re-record.");
+      updateStatus("Stopped. Click 'Play' to listen.");
    }
    isRecording = !isRecording;
 });
