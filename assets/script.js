@@ -6,7 +6,46 @@ let audioContext;
 let audioSource;
 let audioBuffer;
 let audioPlayer;
-let tuna; // Tambahkan variabel tuna untuk equalizer
+let tuna;
+let externalSpeakerDeviceId;
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            selectExternalSpeaker();
+        })
+        .catch(err => {
+            updateStatus("Error: " + err.message);
+        });
+});
+
+function selectExternalSpeaker() {
+    navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+            const audioDevices = devices.filter(device => device.kind === 'audiooutput');
+        })
+        .catch(err => {
+            console.error('Error enumerating devices:', err);
+        });
+}
+
+function setAudioOutput(audioElement, deviceId) {
+  if (typeof audioElement.setSinkId === 'function') {
+    audioElement.setSinkId(deviceId)
+      .then(() => {
+        console.log(`Output audio diarahkan ke perangkat dengan ID: ${deviceId}`);
+      })
+      .catch(err => {
+        console.error('Gagal mengalihkan output audio:', err);
+      });
+  } else {
+    console.error('Browser tidak mendukung setSinkId');
+  }
+}
+
+function updateStatus(message) {
+   document.getElementById('status').textContent = "Status: " + message;
+}
 
 recordButton.addEventListener('click', () => {
    if (!isRecording) {
@@ -26,15 +65,13 @@ function startRecording() {
       .then(stream => {
             audioPlayer = new Audio();
             audioPlayer.srcObject = stream;
+            setAudioOutput(audioPlayer, externalSpeakerDeviceId);
             audioPlayer.play();
-
             mediaRecorder = new MediaRecorder(stream);
             chunks = [];
-
             mediaRecorder.ondataavailable = function (event) {
                chunks.push(event.data);
             }
-
             mediaRecorder.start();
       })
       .catch(err => {
@@ -47,7 +84,6 @@ function stopRecording() {
    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
       mediaRecorder.stop();
    }
-
    audioPlayer.pause();
    audioPlayer.srcObject = null;
 }
@@ -57,7 +93,6 @@ function playRecordedAudio() {
       isPlaying = true;
       const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
       const fileReader = new FileReader();
-
       fileReader.onloadend = function () {
             const arrayBuffer = fileReader.result;
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -66,7 +101,6 @@ function playRecordedAudio() {
                startPlayback();
             });
       };
-
       fileReader.readAsArrayBuffer(blob);
    }
 }
@@ -74,33 +108,20 @@ function playRecordedAudio() {
 function startPlayback() {
    audioSource = audioContext.createBufferSource();
    audioSource.buffer = audioBuffer;
-
-   // Tambahkan GainNode untuk mengontrol volume
    const gainNode = audioContext.createGain();
-   gainNode.gain.value = 1.5; // Tingkatkan volume. Sesuaikan nilai ini berdasarkan kebutuhan.
-
-   // Inisialisasi equalizer dengan Tuna.js
+   gainNode.gain.value = 1.5;
    let equalizer = new tuna.Equalizer({
-      frequency: [60, 230, 910, 3600, 14000], // Ini adalah frekuensi center untuk setiap band.
-      Q: [1.5, 1.5, 1.5, 1.5, 1.5], // Q factor untuk setiap band.
-      gain: [-5, -3, 0, 3, 5], // Sesuaikan gain untuk setiap band untuk mengurangi noise dan meningkatkan kualitas.
+      frequency: [60, 230, 910, 3600, 14000],
+      Q: [1.5, 1.5, 1.5, 1.5, 1.5],
+      gain: [-5, -3, 0, 3, 5],
       bypass: 0
    });
-
-   // Sambungkan audioSource ke equalizer, kemudian ke gainNode, dan akhirnya ke destination.
    audioSource.connect(equalizer.input);
    equalizer.connect(gainNode);
    gainNode.connect(audioContext.destination);
-
    audioSource.start(0);
    audioSource.onended = function() {
       isPlaying = false;
       updateStatus("Playback finished");
    }
 }
-
-
-function updateStatus(message) {
-   document.getElementById('status').textContent = "Status: " + message;
-}
-
